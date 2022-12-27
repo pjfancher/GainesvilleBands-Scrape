@@ -6,7 +6,7 @@ let show_count = 0;
 let date;
 let bands;
 let venue;
-const $ = cheerio.load(fs.readFileSync('data/2002.mhtml'));
+const $ = cheerio.load(fs.readFileSync('data/2003.html'));
 const rows = $('.showlistings tr td', 'body');
 
 rows.each((i, el) => {
@@ -18,7 +18,6 @@ rows.each((i, el) => {
 
   if( td.hasClass('venue') ) {
     venue = td.text().trim();
-
   }
 
   if( td.hasClass('bandlist')) {
@@ -30,13 +29,12 @@ rows.each((i, el) => {
     })
 
     shows[show_count] = {
-      date: date,
+      date : date,
       venue: venue,
       bands: bands
     }
     show_count++;
   }
-
 });
 
 console.log(shows)

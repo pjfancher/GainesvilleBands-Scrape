@@ -1,0 +1,1050 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0094)https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script src="./2008-Jan_files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app212.us.archive.org';v.server_ms=431;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="./2008-Jan_files/bundle-playback.js" charset="utf-8"></script>
+<script type="text/javascript" src="./2008-Jan_files/wombat.js" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.gainesvillebands.com:80/showsarchive.asp?","20080113041311","https://web.archive.org/","web","/_static/",
+	      "1200197591");
+</script>
+<link rel="stylesheet" type="text/css" href="./2008-Jan_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="./2008-Jan_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+
+<title>gainesvillebands.com - Archived show list</title>
+<meta name="description" content="An archive of shows for Gainesville Florida.">
+<meta name="keywords" content="Gainesville, Gville, bands, music, concert, concerts, show, shows, Florida, Alachua, glypher, Gainesville FL, Gainesville Florida, University of Florida, UofF, The Side Bar, Purple Porpoise">
+<meta name="rating" content="genral">
+<meta name="copyright" content="Copyright ©2003 - gainesvillebands.com">
+<meta name="revisit-after" content="31 Days">
+<meta name="distribution" content="global">
+<meta name="robots" content="index,follow">
+
+
+<style type="text/css" media="screen, projection">
+<!--
+  @import url(/web/20080113041311cs_/http://www.gainesvillebands.com/gvb.css);
+-->
+</style>
+
+
+
+<script language="javascript">
+<!--
+
+
+
+function validate(field, type, label) {
+	if (type==1)
+		var valid = " -abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'";
+	else
+		var valid = "1234567890";
+
+	var ok = "yes";
+	var temp;
+	for (var i=0; i<field.value.length; i++) {
+	temp = "" + field.value.substring(i, i+1);
+	if (valid.indexOf(temp) == "-1") ok = "no";
+	if (field.value.length < 4)	ok="no";
+	if (field.value < 1990)	ok="no";
+	}
+	if (ok == "no") {
+	alert("Please Enter A Valid"+label);
+	field.focus();
+	field.select();
+	   }
+}
+
+
+// **BEGIN GENERIC VALIDATION FUNCTIONS**
+// general purpose function to see if an input value
+// has been entered at all
+function isEmpty(inputStr) {
+  if (inputStr == "" || inputStr == null) {
+    return true
+  }
+  return false
+}
+
+// function to determine if value is in acceptable range
+//for this application
+function inRange(inputStr, lo, hi) {
+  var num = parseInt(inputStr, 10)
+  if (num < lo || num > hi) {
+    return false
+  }
+  return true
+}
+// **END GENERIC VALIDATION FUNCTIONS**
+
+function validateMonth(field, bypassUpdate) {
+  var input = field.value
+  if (isEmpty(input)) {
+    alert("Be sure to enter a month value.")
+    select(field)
+    return false
+  } else {
+    input = parseInt(field.value, 10)
+    if (isNaN(input)) {
+      alert("Entries must be numbers only.")
+      select(field)
+      return false
+    } else {
+      if (!inRange(input,1,12)) {
+         alert("Enter a number between 1 (January) and 12 (December).")
+         select(field)
+         return false
+      }
+    }
+  }
+  if (!bypassUpdate) {
+      calcDate()
+  }
+  return true
+}
+
+function validateDate(datefield, monthfield, yearfield) {
+  var input = datefield.value
+  if (isEmpty(input)) {
+    alert("Be sure to enter a date value.")
+    select(datefield)
+    return false
+  } else {
+    input = parseInt(datefield.value, 10)
+    if (isNaN(input)) {
+      alert("Entries must be numbers only.")
+      select(datefield)
+      return false
+    } else {
+      if (!validateMonth(monthfield, true)) return false
+      var monthVal = parseInt(monthfield.value, 10)
+      var monthMax = new Array(31,31,29,31,30,31,30,31,
+                               31,30,31,30,31)
+      var top = monthMax[monthVal]
+//leap year adjustment - if month is Feb
+      if (monthVal == 2)
+      {
+      if (yearfield.value % 4 != 0) {
+         top = 28 /*      {use 28 for days in February} */
+	 }
+      else if  (yearfield.value % 400 == 0) {
+	 top = 29 /*      {use 29 for days in February} */
+	 }
+      else if (yearfield.value % 100 == 0) {
+         top = 28 /*      {use 28 for days in February} */
+	 }
+      else {
+         top = 29 /*         {use 29 for days in February} */
+         }
+      }
+
+      if (!inRange(input,1,top)) {
+        alert("Enter a number between 1 and " + top + ".")
+        select(datefield)
+	datefield.value = top
+        return false
+      }
+    }
+  }
+  calcDate()
+  return true
+}
+
+function validateYear(field) {
+  var input = field.value
+  if (isEmpty(input)) {
+    alert("Be sure to enter a year value.")
+    select(field)
+    return false
+  } else {
+    input = parseInt(field.value, 10)
+    if (isNaN(input)) {
+      alert("Entries must be numbers only.")
+      select(field)
+      return false
+    } else {
+    var maxYear = d.getFullYear()+2
+      if (!inRange(input,1990,maxYear)) {
+        alert("Enter a number between 1990 and " + maxYear +  ".")
+        select(field)
+        return false
+      }
+    }
+  }
+  calcDate()
+  return true
+}
+
+function select(field) {
+  field.focus()
+//  field.select()
+}
+
+function calcDate() {
+  var mm = parseInt(document.dates.frommonth.value, 10)
+  var dd = parseInt(document.dates.fromday.value, 10)
+  var yy = parseInt(document.dates.fromyear.value, 10)
+  document.dates.startDate.value = mm + "/" + dd + "/" + yy
+  mm = parseInt(document.dates.tomonth.value, 10)
+  dd = parseInt(document.dates.today.value, 10)
+  yy = parseInt(document.dates.toyear.value, 10)
+  document.dates.endDate.value = mm + "/" + dd + "/" + yy
+}
+
+function checkForm(form) {
+  if ((validateMonth(form.LM))
+     && (validateDate(form.LD, form.LM, form.LY))
+     && (validateYear(form.LY))
+     && (validateMonth(form.HM))
+     && (validateDate(form.HD, form.HM, form.HY))
+     && (validateYear(form.HY)))
+     {
+       return true
+      }
+  else
+      return false
+}
+function initForm()
+{
+document.dates.frommonth.value = d.month()
+document.dates.fromday.value = 1
+document.dates.fromyear.value = d.year()
+document.dates.tomonth.value = d.month()
+document.dates.today.value = 1
+document.dates.toyear.value = d.year()
+}
+//-->
+</script>
+
+
+
+
+
+
+</head>
+
+
+<body bgcolor="#000033" text="#cccc99" cz-shortcut-listen="true"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(675,27,25,2,"web","http://www.gainesvillebands.com/showsarchive.asp","20080113041311",1996,"/_static/",["/_static/css/banner-styles.css?v=S1zqJCYt","/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<script language="JavaScript" src="./2008-Jan_files/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+
+
+
+
+<a name="top"></a>
+<table width="750" height="90" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<td bgcolor="000000">
+		<img src="./2008-Jan_files/newheader.jpg" width="300" height="58" alt=""></td>
+
+	</tr>
+</tbody></table>
+<table width="750" height="90" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<td bgcolor="000000">
+
+		</td>
+		<td bgcolor="000000">
+
+		</td>
+	</tr>
+</tbody></table>
+
+<link rel="stylesheet" href="./2008-Jan_files/menu.css">
+
+<!-- menu script itself. you should not modify this file -->
+<script language="JavaScript" src="./2008-Jan_files/menu.js"></script>
+<!-- items structure. menu hierarchy and links are stored there -->
+<script language="JavaScript" src="./2008-Jan_files/menu_items.js"></script>
+<!-- files with geometry and styles structures -->
+<script language="JavaScript" src="./2008-Jan_files/menumain_tpl.js"></script>
+<script language="JavaScript">
+	<!--//
+	new menu (MENU_ITEMS, MENU_POS);
+	//-->
+</script><a id="e0_0o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/" style="position: absolute; top: 185px; left: 10px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(0);" onmouseout="TMA[0].onmouseout(0);" onmouseover="TMA[0].onmouseover(0);" onmousedown="TMA[0].onmousedown(0);"><div id="e0_0i" class="m0l0iout">Flyers</div></a>
+<a id="e0_1o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/flyerpage.asp" style="position: absolute; top: 214px; left: 10px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(1);" onmouseout="TMA[0].onmouseout(1);" onmouseover="TMA[0].onmouseover(1);" onmousedown="TMA[0].onmousedown(1);"><div id="e0_1i" class="m0l1iout">This Week</div></a>
+<a id="e0_2o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/flyerpageall.asp" style="position: absolute; top: 235px; left: 10px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(2);" onmouseout="TMA[0].onmouseout(2);" onmouseover="TMA[0].onmouseover(2);" onmousedown="TMA[0].onmousedown(2);"><div id="e0_2i" class="m0l1iout">All Upcoming</div></a>
+<a id="e0_3o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/flyerarchive.asp" style="position: absolute; top: 256px; left: 10px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(3);" onmouseout="TMA[0].onmouseout(3);" onmouseover="TMA[0].onmouseover(3);" onmousedown="TMA[0].onmousedown(3);"><div id="e0_3i" class="m0l1iout">Past Flyers</div></a>
+<a id="e0_4o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/faq_flyers.asp" style="position: absolute; top: 277px; left: 10px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(4);" onmouseout="TMA[0].onmouseout(4);" onmouseover="TMA[0].onmouseover(4);" onmousedown="TMA[0].onmousedown(4);"><div id="e0_4i" class="m0l1iout">Flyer FAQ</div></a>
+<a id="e0_5o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/news.asp" style="position: absolute; top: 185px; left: 75px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(5);" onmouseout="TMA[0].onmouseout(5);" onmouseover="TMA[0].onmouseover(5);" onmousedown="TMA[0].onmousedown(5);"><div id="e0_5i" class="m0l0iout">News</div></a>
+<a id="e0_6o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/news.asp" style="position: absolute; top: 214px; left: 75px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(6);" onmouseout="TMA[0].onmouseout(6);" onmouseover="TMA[0].onmouseover(6);" onmousedown="TMA[0].onmousedown(6);"><div id="e0_6i" class="m0l1iout">News Page</div></a>
+<a id="e0_7o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=20" style="position: absolute; top: 235px; left: 75px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(7);" onmouseout="TMA[0].onmouseout(7);" onmouseover="TMA[0].onmouseover(7);" onmousedown="TMA[0].onmousedown(7);"><div id="e0_7i" class="m0l1iout">News Archive</div></a>
+<a id="e0_8o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/faq_submissions.asp" style="position: absolute; top: 256px; left: 75px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(8);" onmouseout="TMA[0].onmouseout(8);" onmouseover="TMA[0].onmouseover(8);" onmousedown="TMA[0].onmousedown(8);"><div id="e0_8i" class="m0l1iout">Subit A News Item</div></a>
+<a id="e0_9o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/shows.asp" style="position: absolute; top: 185px; left: 140px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(9);" onmouseout="TMA[0].onmouseout(9);" onmouseover="TMA[0].onmouseover(9);" onmousedown="TMA[0].onmousedown(9);"><div id="e0_9i" class="m0l0iout">Shows</div></a>
+<a id="e0_10o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/shows.asp" style="position: absolute; top: 214px; left: 140px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(10);" onmouseout="TMA[0].onmouseout(10);" onmouseover="TMA[0].onmouseover(10);" onmousedown="TMA[0].onmousedown(10);"><div id="e0_10i" class="m0l1iout">Upcoming Shows</div></a>
+<a id="e0_11o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/showsarchive.asp" style="position: absolute; top: 235px; left: 140px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(11);" onmouseout="TMA[0].onmouseout(11);" onmouseover="TMA[0].onmouseover(11);" onmousedown="TMA[0].onmousedown(11);"><div id="e0_11i" class="m0l1iout">Search Past Shows</div></a>
+<a id="e0_12o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5" style="position: absolute; top: 256px; left: 140px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(12);" onmouseout="TMA[0].onmouseout(12);" onmouseover="TMA[0].onmouseover(12);" onmousedown="TMA[0].onmousedown(12);"><div id="e0_12i" class="m0l1iout">Submit a Show</div></a>
+<a id="e0_13o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/bands.asp" style="position: absolute; top: 185px; left: 205px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(13);" onmouseout="TMA[0].onmouseout(13);" onmouseover="TMA[0].onmouseover(13);" onmousedown="TMA[0].onmousedown(13);"><div id="e0_13i" class="m0l0iout">Bands</div></a>
+<a id="e0_14o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/bands.asp" style="position: absolute; top: 214px; left: 205px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(14);" onmouseout="TMA[0].onmouseout(14);" onmouseover="TMA[0].onmouseover(14);" onmousedown="TMA[0].onmousedown(14);"><div id="e0_14i" class="m0l1iout">Current Bands</div></a>
+<a id="e0_15o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/showsarchive.asp" style="position: absolute; top: 235px; left: 205px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(15);" onmouseout="TMA[0].onmouseout(15);" onmouseover="TMA[0].onmouseover(15);" onmousedown="TMA[0].onmousedown(15);"><div id="e0_15i" class="m0l1iout">Search</div></a>
+<a id="e0_16o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/bandsarchive.asp" style="position: absolute; top: 256px; left: 205px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(16);" onmouseout="TMA[0].onmouseout(16);" onmouseover="TMA[0].onmouseover(16);" onmousedown="TMA[0].onmousedown(16);"><div id="e0_16i" class="m0l1iout">Retired Bands</div></a>
+<a id="e0_17o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=3" style="position: absolute; top: 277px; left: 205px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(17);" onmouseout="TMA[0].onmouseout(17);" onmouseover="TMA[0].onmouseover(17);" onmousedown="TMA[0].onmousedown(17);"><div id="e0_17i" class="m0l1iout">Add a Band</div></a>
+<a id="e0_18o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/venues.asp" style="position: absolute; top: 185px; left: 270px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(18);" onmouseout="TMA[0].onmouseout(18);" onmouseover="TMA[0].onmouseover(18);" onmousedown="TMA[0].onmousedown(18);"><div id="e0_18i" class="m0l0iout">Venues</div></a>
+<a id="e0_19o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/venues.asp" style="position: absolute; top: 214px; left: 270px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(19);" onmouseout="TMA[0].onmouseout(19);" onmouseover="TMA[0].onmouseover(19);" onmousedown="TMA[0].onmousedown(19);"><div id="e0_19i" class="m0l1iout">Venue Listing</div></a>
+<a id="e0_20o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp" style="position: absolute; top: 185px; left: 335px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(20);" onmouseout="TMA[0].onmouseout(20);" onmouseover="TMA[0].onmouseover(20);" onmousedown="TMA[0].onmousedown(20);"><div id="e0_20i" class="m0l0iout">Forums</div></a>
+<a id="e0_21o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp" style="position: absolute; top: 214px; left: 335px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(21);" onmouseout="TMA[0].onmouseout(21);" onmouseover="TMA[0].onmouseover(21);" onmousedown="TMA[0].onmousedown(21);"><div id="e0_21i" class="m0l1iout">Forum Directory</div></a>
+<a id="e0_22o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp?C=4" style="position: absolute; top: 219px; left: 445px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(22);" onmouseout="TMA[0].onmouseout(22);" onmouseover="TMA[0].onmouseover(22);" onmousedown="TMA[0].onmousedown(22);"><div id="e0_22i" class="m0l2iout">Music Discussion</div></a>
+<a id="e0_23o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=1" style="position: absolute; top: 224px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(23);" onmouseout="TMA[0].onmouseout(23);" onmouseover="TMA[0].onmouseover(23);" onmousedown="TMA[0].onmousedown(23);"><div id="e0_23i" class="m0l2iout">General Music Discussion</div></a>
+<a id="e0_24o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=32" style="position: absolute; top: 245px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(24);" onmouseout="TMA[0].onmouseout(24);" onmouseover="TMA[0].onmouseover(24);" onmousedown="TMA[0].onmousedown(24);"><div id="e0_24i" class="m0l2iout">Upcoming Shows</div></a>
+<a id="e0_25o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=2" style="position: absolute; top: 266px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(25);" onmouseout="TMA[0].onmouseout(25);" onmouseover="TMA[0].onmouseover(25);" onmousedown="TMA[0].onmousedown(25);"><div id="e0_25i" class="m0l2iout">Past Shows</div></a>
+<a id="e0_26o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=19" style="position: absolute; top: 287px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(26);" onmouseout="TMA[0].onmouseout(26);" onmouseover="TMA[0].onmouseover(26);" onmousedown="TMA[0].onmousedown(26);"><div id="e0_26i" class="m0l2iout">Audiophiles Anon.</div></a>
+<a id="e0_27o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=29" style="position: absolute; top: 308px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(27);" onmouseout="TMA[0].onmouseout(27);" onmouseover="TMA[0].onmouseover(27);" onmousedown="TMA[0].onmousedown(27);"><div id="e0_27i" class="m0l2iout">Create-A-Band</div></a>
+<a id="e0_28o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=3" style="position: absolute; top: 329px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(28);" onmouseout="TMA[0].onmouseout(28);" onmouseover="TMA[0].onmouseover(28);" onmousedown="TMA[0].onmousedown(28);"><div id="e0_28i" class="m0l2iout">Classifieds</div></a>
+<a id="e0_29o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=9" style="position: absolute; top: 350px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(29);" onmouseout="TMA[0].onmouseout(29);" onmouseover="TMA[0].onmouseover(29);" onmousedown="TMA[0].onmousedown(29);"><div id="e0_29i" class="m0l2iout">Local Events &amp; Parties</div></a>
+<a id="e0_30o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp?C=10" style="position: absolute; top: 240px; left: 445px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(30);" onmouseout="TMA[0].onmouseout(30);" onmouseover="TMA[0].onmouseover(30);" onmousedown="TMA[0].onmousedown(30);"><div id="e0_30i" class="m0l2iout">Hosted Forums</div></a>
+<a id="e0_31o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=33" style="position: absolute; top: 245px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(31);" onmouseout="TMA[0].onmouseout(31);" onmouseover="TMA[0].onmouseover(31);" onmousedown="TMA[0].onmousedown(31);"><div id="e0_31i" class="m0l2iout">100.5 The Buzz</div></a>
+<a id="e0_32o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=8" style="position: absolute; top: 266px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(32);" onmouseout="TMA[0].onmouseout(32);" onmouseover="TMA[0].onmouseover(32);" onmousedown="TMA[0].onmousedown(32);"><div id="e0_32i" class="m0l2iout">Rock 104</div></a>
+<a id="e0_33o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=17" style="position: absolute; top: 287px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(33);" onmouseout="TMA[0].onmouseout(33);" onmouseover="TMA[0].onmouseover(33);" onmousedown="TMA[0].onmousedown(33);"><div id="e0_33i" class="m0l2iout">MoeFest</div></a>
+<a id="e0_34o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=21" style="position: absolute; top: 308px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(34);" onmouseout="TMA[0].onmouseout(34);" onmouseover="TMA[0].onmouseover(34);" onmousedown="TMA[0].onmousedown(34);"><div id="e0_34i" class="m0l2iout">V-Fest</div></a>
+<a id="e0_35o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp?C=7" style="position: absolute; top: 261px; left: 445px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(35);" onmouseout="TMA[0].onmouseout(35);" onmouseover="TMA[0].onmouseover(35);" onmousedown="TMA[0].onmousedown(35);"><div id="e0_35i" class="m0l2iout">GB.com</div></a>
+<a id="e0_36o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=13" style="position: absolute; top: 266px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(36);" onmouseout="TMA[0].onmouseout(36);" onmouseover="TMA[0].onmouseover(36);" onmousedown="TMA[0].onmousedown(36);"><div id="e0_36i" class="m0l2iout">Submissions</div></a>
+<a id="e0_37o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=20" style="position: absolute; top: 287px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(37);" onmouseout="TMA[0].onmouseout(37);" onmouseover="TMA[0].onmouseover(37);" onmousedown="TMA[0].onmousedown(37);"><div id="e0_37i" class="m0l2iout">News</div></a>
+<a id="e0_38o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=24" style="position: absolute; top: 308px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(38);" onmouseout="TMA[0].onmouseout(38);" onmouseover="TMA[0].onmouseover(38);" onmousedown="TMA[0].onmousedown(38);"><div id="e0_38i" class="m0l2iout">Polls</div></a>
+<a id="e0_39o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=22" style="position: absolute; top: 329px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(39);" onmouseout="TMA[0].onmouseout(39);" onmouseover="TMA[0].onmouseover(39);" onmousedown="TMA[0].onmousedown(39);"><div id="e0_39i" class="m0l2iout">Reports</div></a>
+<a id="e0_40o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=4" style="position: absolute; top: 350px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(40);" onmouseout="TMA[0].onmouseout(40);" onmouseover="TMA[0].onmouseover(40);" onmousedown="TMA[0].onmousedown(40);"><div id="e0_40i" class="m0l2iout">Questions</div></a>
+<a id="e0_41o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=14" style="position: absolute; top: 371px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(41);" onmouseout="TMA[0].onmouseout(41);" onmouseover="TMA[0].onmouseover(41);" onmousedown="TMA[0].onmousedown(41);"><div id="e0_41i" class="m0l2iout">Updates</div></a>
+<a id="e0_42o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=18" style="position: absolute; top: 392px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(42);" onmouseout="TMA[0].onmouseout(42);" onmouseover="TMA[0].onmouseover(42);" onmousedown="TMA[0].onmousedown(42);"><div id="e0_42i" class="m0l2iout">Mod Lounge</div></a>
+<a id="e0_43o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/default.asp?C=8" style="position: absolute; top: 282px; left: 445px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(43);" onmouseout="TMA[0].onmouseout(43);" onmouseover="TMA[0].onmouseover(43);" onmousedown="TMA[0].onmousedown(43);"><div id="e0_43i" class="m0l2iout">Outer Realms</div></a>
+<a id="e0_44o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=6" style="position: absolute; top: 287px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(44);" onmouseout="TMA[0].onmouseout(44);" onmouseover="TMA[0].onmouseover(44);" onmousedown="TMA[0].onmousedown(44);"><div id="e0_44i" class="m0l2iout">The Void</div></a>
+<a id="e0_45o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=34" style="position: absolute; top: 308px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(45);" onmouseout="TMA[0].onmouseout(45);" onmouseover="TMA[0].onmouseover(45);" onmousedown="TMA[0].onmousedown(45);"><div id="e0_45i" class="m0l2iout">The Vault</div></a>
+<a id="e0_46o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=30" style="position: absolute; top: 329px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(46);" onmouseout="TMA[0].onmouseout(46);" onmouseover="TMA[0].onmouseover(46);" onmousedown="TMA[0].onmousedown(46);"><div id="e0_46i" class="m0l2iout">Moron Room</div></a>
+<a id="e0_47o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=31" style="position: absolute; top: 350px; left: 555px; width: 150px; height: 20px; visibility: hidden; z-index: 3;" onclick="return TMA[0].onclick(47);" onmouseout="TMA[0].onmouseout(47);" onmouseover="TMA[0].onmouseover(47);" onmousedown="TMA[0].onmousedown(47);"><div id="e0_47i" class="m0l2iout">Champagne Room</div></a>
+<a id="e0_48o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/active_topics.asp" style="position: absolute; top: 235px; left: 335px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(48);" onmouseout="TMA[0].onmouseout(48);" onmouseover="TMA[0].onmouseover(48);" onmousedown="TMA[0].onmousedown(48);"><div id="e0_48i" class="m0l1iout">Active Topics</div></a>
+<a id="e0_49o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/pm_welcome.asp" style="position: absolute; top: 256px; left: 335px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(49);" onmouseout="TMA[0].onmouseout(49);" onmouseover="TMA[0].onmouseover(49);" onmousedown="TMA[0].onmousedown(49);"><div id="e0_49i" class="m0l1iout">Private Messenger</div></a>
+<a id="e0_50o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/active_users.asp" style="position: absolute; top: 277px; left: 335px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(50);" onmouseout="TMA[0].onmouseout(50);" onmouseover="TMA[0].onmouseover(50);" onmousedown="TMA[0].onmousedown(50);"><div id="e0_50i" class="m0l1iout">Active Users</div></a>
+<a id="e0_51o" class="m0l0oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=4" style="position: absolute; top: 185px; left: 400px; width: 65px; height: 28px; visibility: visible; z-index: 0;" onclick="return TMA[0].onclick(51);" onmouseout="TMA[0].onmouseout(51);" onmouseover="TMA[0].onmouseover(51);" onmousedown="TMA[0].onmousedown(51);"><div id="e0_51i" class="m0l0iout">FAQs</div></a>
+<a id="e0_52o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_topics.asp?FID=4" style="position: absolute; top: 214px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(52);" onmouseout="TMA[0].onmouseout(52);" onmouseover="TMA[0].onmouseover(52);" onmousedown="TMA[0].onmousedown(52);"><div id="e0_52i" class="m0l1iout">Faqs</div></a>
+<a id="e0_53o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=8156" style="position: absolute; top: 235px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(53);" onmouseout="TMA[0].onmouseout(53);" onmouseover="TMA[0].onmouseover(53);" onmousedown="TMA[0].onmousedown(53);"><div id="e0_53i" class="m0l1iout">the FAQdex!</div></a>
+<a id="e0_54o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5485" style="position: absolute; top: 256px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(54);" onmouseout="TMA[0].onmouseout(54);" onmouseover="TMA[0].onmouseover(54);" onmousedown="TMA[0].onmousedown(54);"><div id="e0_54i" class="m0l1iout">Help GBdC</div></a>
+<a id="e0_55o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5515" style="position: absolute; top: 277px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(55);" onmouseout="TMA[0].onmouseout(55);" onmouseover="TMA[0].onmouseover(55);" onmousedown="TMA[0].onmousedown(55);"><div id="e0_55i" class="m0l1iout">Contact Us</div></a>
+<a id="e0_56o" class="m0l1oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5511" style="position: absolute; top: 298px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(56);" onmouseout="TMA[0].onmouseout(56);" onmouseover="TMA[0].onmouseover(56);" onmousedown="TMA[0].onmousedown(56);"><div id="e0_56i" class="m0l1iout">About GBdC</div></a>
+<a id="e0_57o" class="m0l1oout" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/null" style="position: absolute; top: 319px; left: 400px; width: 150px; height: 20px; visibility: hidden; z-index: 1;" onclick="return TMA[0].onclick(57);" onmouseout="TMA[0].onmouseout(57);" onmouseover="TMA[0].onmouseover(57);" onmousedown="TMA[0].onmousedown(57);"><div id="e0_57i" class="m0l1iout">Submissions</div></a>
+<a id="e0_58o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5" style="position: absolute; top: 324px; left: 510px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(58);" onmouseout="TMA[0].onmouseout(58);" onmouseover="TMA[0].onmouseover(58);" onmousedown="TMA[0].onmousedown(58);"><div id="e0_58i" class="m0l2iout">Shows</div></a>
+<a id="e0_59o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=3" style="position: absolute; top: 345px; left: 510px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(59);" onmouseout="TMA[0].onmouseout(59);" onmouseover="TMA[0].onmouseover(59);" onmousedown="TMA[0].onmousedown(59);"><div id="e0_59i" class="m0l2iout">Bands</div></a>
+<a id="e0_60o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5487" style="position: absolute; top: 366px; left: 510px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(60);" onmouseout="TMA[0].onmouseout(60);" onmouseover="TMA[0].onmouseover(60);" onmousedown="TMA[0].onmousedown(60);"><div id="e0_60i" class="m0l2iout">Flyers</div></a>
+<a id="e0_61o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5488" style="position: absolute; top: 387px; left: 510px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(61);" onmouseout="TMA[0].onmouseout(61);" onmouseover="TMA[0].onmouseover(61);" onmousedown="TMA[0].onmousedown(61);"><div id="e0_61i" class="m0l2iout">Reports</div></a>
+<a id="e0_62o" class="m0l2oout" href="https://web.archive.org/web/20080113041311mp_/http://www.gainesvillebands.com/forum/forum_posts.asp?TID=5269" style="position: absolute; top: 408px; left: 510px; width: 150px; height: 20px; visibility: hidden; z-index: 2;" onclick="return TMA[0].onclick(62);" onmouseout="TMA[0].onmouseout(62);" onmouseover="TMA[0].onmouseover(62);" onmousedown="TMA[0].onmousedown(62);"><div id="e0_62i" class="m0l2iout">News</div></a>
+
+
+<!-- regular menu for non-dhtml browsers: -->
+
+<table width="400" height="25">
+
+<tbody><tr>
+<td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/flyerpage.asp" target="_top">Flyers</a>
+
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/news.asp" target="_top">News</a>
+
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/shows.asp" target="_top">Shows</a>
+
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/bands.asp" target="_top">Bands</a>
+
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/venues.asp" target="_top">Venues</a>
+
+<!--
+<td class=navbar nowrap><a class=navbar href="/reports.asp" target="_top">Reports</a>
+
+
+<td class=navbar nowrap><a class=navbar href="/links.asp" target="_top">Links</a>
+
+
+<td class=navbar nowrap><a class=navbar href="/catalog/index.php" target="_top"><b>Online Store & Distro (NEW!)</b></A>
+-->
+<!--
+Removing Chat
+<td class=navbar nowrap><a class=navbar href="/chat.asp" target="_top">Chat</A>
+-->
+
+<!--
+ Removing Radio
+<td class=navbar nowrap><a class=navbar href="/radio.asp" target="_top">Radio</A>
+-->
+
+
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/forum/default.asp" target="_top">Forums</a>
+</td><td nowrap=""><a class="navbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq.asp" target="_top">FAQs</a>
+
+
+</td></tr>
+
+</tbody></table>
+
+<table cellpadding="2" cellspacing="5" border="0" width="100%" align="center">
+<tbody><tr valign="TOP">
+<td bgcolor="#666633">
+
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tbody><tr><td align="center" width="150">
+<!-- SmartASP.net Scripting Ad Code (Group: BannerSideMain) -->
+<script language="JavaScript" src="./2008-Jan_files/adImprScripting.asp"></script>
+<!-- SmartASP.net Scripting Ad Code End -->
+</td></tr>
+
+<tr><td>
+&nbsp;
+</td></tr>
+
+<tr><td align="center" width="150">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3646645133794388";
+google_ad_width = 120;
+google_ad_height = 600;
+google_ad_format = "120x600_as";
+google_ad_channel ="3365796200";
+google_color_border = "000000";
+google_color_bg = "333333";
+google_color_link = "FFFFFF";
+google_color_url = "FF9900";
+google_color_text = "FFFFFF";
+//--></script>
+<script type="text/javascript" src="./2008-Jan_files/show_ads.js">
+</script>
+</td></tr>
+
+</tbody></table>
+
+</td>
+
+<td class="body" width="75%" height="450">
+
+
+
+<h2 class="center">Shows Archive</h2>
+<p class="center">
+<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2002">-2002-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2003">-2003-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2004">-2004-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2005">-2005-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2006">-2006-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2007">-2007-</a> <a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showsarchive.asp?year=2008">-2008-</a> 
+</p>
+
+<table width="100%" bgcolor="666666">
+<tbody><tr><th align="left">search:
+</th></tr><tr><th align="left">By band name:</th><th align="left">By dates between:
+</th></tr><tr><td valign="top"><form><input type="text" name="bandname" size="8" maxlength="30"><input type="submit" value="go">
+<input name="queryby" type="hidden" value="name">
+</form>
+
+
+</td><td valign="top"><form>
+		<select name="LM">
+			<option value="01" selected="">January
+			</option><option value="02">February
+			</option><option value="03">March
+			</option><option value="04">April
+			</option><option value="05">May
+			</option><option value="06">June
+			</option><option value="07">July
+			</option><option value="08">August
+			</option><option value="09">September
+			</option><option value="10">October
+			</option><option value="11">November
+			</option><option value="12">December
+			</option>
+		</select>
+	<select name="LD">
+		<option value="01" selected="">01
+		</option><option value="02">02
+		</option><option value="03">03
+		</option><option value="04">04
+		</option><option value="05">05
+		</option><option value="06">06
+		</option><option value="07">07
+		</option><option value="08">08
+		</option><option value="09">09
+		</option><option value="10">10
+		</option><option value="11">11
+		</option><option value="12">12
+		</option><option value="13">13
+		</option><option value="14">14
+		</option><option value="15">15
+		</option><option value="16">16
+		</option><option value="17">17
+		</option><option value="18">18
+		</option><option value="19">19
+		</option><option value="20">20
+		</option><option value="21">21
+		</option><option value="22">22
+		</option><option value="23">23
+		</option><option value="24">24
+		</option><option value="25">25
+		</option><option value="26">26
+		</option><option value="27">27
+		</option><option value="28">28
+		</option><option value="29">29
+		</option><option value="30">30
+		</option><option value="31">31</option>
+	</select>
+
+<input size="4" name="LY" value="2008" onblur="javascript:validate(LY,2,&#39; Year&#39;)" maxlength="4">
+<br>and<br>
+		<select name="HM">
+			<option value="01" selected="">January
+			</option><option value="02">February
+			</option><option value="03">March
+			</option><option value="04">April
+			</option><option value="05">May
+			</option><option value="06">June
+			</option><option value="07">July
+			</option><option value="08">August
+			</option><option value="09">September
+			</option><option value="10">October
+			</option><option value="11">November
+			</option><option value="12">December
+			</option>
+		</select>
+	<select name="HD">
+		<option value="01">01
+		</option><option value="02">02
+		</option><option value="03">03
+		</option><option value="04">04
+		</option><option value="05">05
+		</option><option value="06">06
+		</option><option value="07">07
+		</option><option value="08">08
+		</option><option value="09">09
+		</option><option value="10">10
+		</option><option value="11">11
+		</option><option value="12" selected="">12
+		</option><option value="13">13
+		</option><option value="14">14
+		</option><option value="15">15
+		</option><option value="16">16
+		</option><option value="17">17
+		</option><option value="18">18
+		</option><option value="19">19
+		</option><option value="20">20
+		</option><option value="21">21
+		</option><option value="22">22
+		</option><option value="23">23
+		</option><option value="24">24
+		</option><option value="25">25
+		</option><option value="26">26
+		</option><option value="27">27
+		</option><option value="28">28
+		</option><option value="29">29
+		</option><option value="30">30
+		</option><option value="31">31</option>
+	</select>
+
+<input size="4" name="HY" value="2008" onblur="javascript:validate(HY,2,&#39; Year&#39;)" maxlength="4">
+<input name="queryby" type="hidden" value="date"><input type="submit" value="go">
+</form>
+</td></tr></tbody></table>
+Last week's Shows
+<style>
+<!--
+a.BandLocal:link	{color: #ff9933;TEXT-DECORATION: none}
+a.BandLocal:visited	{color: #ff9933;TEXT-DECORATION: none}
+a.BandLocal:active	{color: #FFCC00;TEXT-DECORATION: none}
+a.BandLocal:hover	{color: #FFCC00;TEXT-DECORATION: none}
+
+a.BandForeign:link	{color: #CCFFCC;TEXT-DECORATION: none}
+a.BandForeign:visited	{color: #CCFFCC;TEXT-DECORATION: none}
+a.BandForeign:active	{color: #FFCC00;TEXT-DECORATION: none}
+a.BandForeign:hover	{color: #FFCC00;TEXT-DECORATION: none}
+
+
+
+a:link		{color: #ff9933;TEXT-DECORATION: none}
+a:visited	{color: #ffcc33;TEXT-DECORATION: none}
+a:active	{color: #FFCC00;TEXT-DECORATION: none}
+-->
+</style>
+
+
+
+<a name="show7545"></a><a name="show7506"></a><a name="show7371"></a><a name="show7473"></a><a name="show7452"></a><a name="show7546"></a><a name="show7389"></a><a name="show7567"></a><a name="show7547"></a><a name="show7543"></a><a name="show7507"></a><a name="show7384"></a><a name="show7302"></a><a name="show7418"></a><a name="show7372"></a><a name="show7548"></a><a name="show7373"></a><a name="show7585"></a><a name="show7553"></a><a name="show7549"></a><a name="show7453"></a><a name="show7374"></a><a name="show7518"></a><a name="show7317"></a><a name="show7588"></a><a name="show7423"></a><a name="show7454"></a><a name="show7237"></a><a name="show7272"></a><a name="show7539"></a><a name="show7537"></a><table border="0">
+
+<tbody><tr><th colspan="5"><br>January 2008</th></tr>
+<tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 5
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7545" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5/$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=459" onmouseover="return overlib(&#39;Three piece original and covers, favs are NIN, PJ, Audioslave&#39;);" onmouseout="return nd();"><b>Moms Attic</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/localtrafficonlyband">Local Traffic</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/longstrangeday">Long Strange Day</a></b>, <b>Dirty Hammock</b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 5
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=62">Atlantic</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7506" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/weareprimates" target="_blank" onmouseover="return overlib(&#39;mellow and oh so pretty&#39;);" onmouseout="return nd();">primates</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/elgetdown" target="_blank" onmouseover="return overlib(&#39;ass shakin thump!&#39;);" onmouseout="return nd();">the get down</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/taylormott" target="_blank" onmouseover="return overlib(&#39;shoegaze&#39;);" onmouseout="return nd();">taylor mott</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=174" onmouseover="return overlib(&#39;Matthew Brown and a stolen acoustic. Solo fingerstyle. &#39;);" onmouseout="return nd();"><b>Witness the Fitness</b></a></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 5
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7371" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10 pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;GARGAMEL!..what elese can you say!!smokin hot show&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/gargamel" target="_blank" onmouseover="return overlib(&#39;rock/experimental&#39;);" onmouseout="return nd();">Gargamel</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/wetlucy" target="_blank" onmouseover="return overlib(&#39;rock&#39;);" onmouseout="return nd();">Wet Lucy</a></b>, <b><a class="BandForeign" href="http://www.myspace.com/5daybeginning" target="_blank" onmouseover="return overlib(&#39;rock&#39;);" onmouseout="return nd();">5 Day Beginning</a></b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 5
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=1">The Side Bar</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7473" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Hip Hop Saturday&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5, Ladies free until midnight&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;The best in local talent on the 1 &amp;amp; 2\&#39;s. A very special night of live local hip hop brought to you by Black Paradise Productions&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/myblackparadise" target="_blank" onmouseover="return overlib(&#39;Live Hip Hop artists all night&#39;);" onmouseout="return nd();">Hip Hop Showdown Saturday</a></b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 5
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=30">Wayward Council</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7452" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$3-5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b>Boogdish</b>, <b>Royallen</b>, <b>Seven White Cats</b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Sun
+</td><td nowrap="">Jan 6
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7546" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;SKA SHOW!&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;7pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$6/$7&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/themadconductor" target="_blank" onmouseover="return overlib(&#39;Hip-hop Ska Legends!&#39;);" onmouseout="return nd();">The Mad Conductor</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/vincentvalentineband">Vincent Valentine</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=531" onmouseover="return overlib(&#39;Ska and punk, hoorah.&#39;);" onmouseout="return nd();"><b>Shotgun Diplomacy</b></a></td></tr><tr> <td nowrap="">Sun
+</td><td nowrap="">Jan 6
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7389" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;OPEN MIC NIGHT&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=472" onmouseover="return overlib(&#39;Some old fashioned rock-n-roll with a little twist...&#39;);" onmouseout="return nd();"><b>Empty Fifth</b></a>, <b>open mic night</b></td></tr><tr> <td nowrap="">Sun
+</td><td nowrap="">Jan 6
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=30">Wayward Council</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7567" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b>Halo Fauna</b>, <b>White York</b>, <b>Kathleen with K-flow</b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Mon
+</td><td nowrap="">Jan 7
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7547" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;GUITAR HERO &amp;amp; VIDEO GAME NIGHT!&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;7pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;FREE! NO COVER!&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.youtube.com/1982bar">GUITAR HERO &amp; VIDEO GAMES, YO!</a></b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Tue
+</td><td nowrap="">Jan 8
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7543" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5/$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/bonzxylophone" target="_blank" onmouseover="return overlib(&#39;Chunky sketchy odd digital spazztronics - from Winter Park, FL&#39;);" onmouseout="return nd();">Bonz Xylophone</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/dynamiteplan">Dynamite Plan</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/robotgoeshere" target="_blank" onmouseover="return overlib(&#39;One man electropunk band - from Somerville, MA&#39;);" onmouseout="return nd();">Robot Goes Here</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=473"><b>London's Werewolf Epidemic</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=405" onmouseover="return overlib(&#39;Supersonic Electroplasmatic in the vein of Trans Am &amp;amp; Six Finger Satellite&#39;);" onmouseout="return nd();"><b>Sidecar Racer</b></a></td></tr><tr> <td nowrap="">Tue
+</td><td nowrap="">Jan 8
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=62">Atlantic</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7507" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/monarchrva" target="_blank" onmouseover="return overlib(&#39;pissed metal from richmond VA&#39;);" onmouseout="return nd();">monarch [RVA]</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/DARKCASTLEMETAL" target="_blank" onmouseover="return overlib(&#39;down tempo doom metal&#39;);" onmouseout="return nd();">dark castle</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=387" onmouseover="return overlib(&#39;hardcore, post hardcore&#39;);" onmouseout="return nd();"><b>Luca Brasi</b></a>, <b>thunder over water</b></td></tr><tr> <td nowrap="">Tue
+</td><td nowrap="">Jan 8
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7384" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;A SPECIAL show with Egypt Central..get ready for these guys..drop dead rockin!!&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/egyptcentral88" target="_blank" onmouseover="return overlib(&#39;great rock&#39;);" onmouseout="return nd();">Egypt Central</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=548" onmouseover="return overlib(&#39;Mmmmetal? Intense but accessible.&#39;);" onmouseout="return nd();"><b>Validus</b></a></td></tr><tr> <td nowrap="">Tue
+</td><td nowrap="">Jan 8
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=1">The Side Bar</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7302" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Reggae Tuesday&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5 Guys, ladies Free, 18+&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Live reggae by a mix of Gainesville\&#39;s finest reggae musicians. Free PBR from 9-11pm. $2.50 Red Stripe &amp;amp; Coronas&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/reggaetuesdaysallstars" target="_blank" onmouseover="return overlib(&#39;members of Juice, The Captives, The Duppies, Mindrise, and more...&#39;);" onmouseout="return nd();">The Reggae Tuesday Allstars</a></b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Wed
+</td><td nowrap="">Jan 9
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7418" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5/$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=37"><b>Grabass Charlestons</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=504"><b>Laserhead</b></a>, <b><a class="BandForeign" href="javascript:void(0);" onmouseover="return overlib(&#39;new rock from the likes of Uri Garcia&#39;);" onmouseout="return nd();">Bad Tat</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/louistullypartyprogram" target="_blank" onmouseover="return overlib(&#39;Milwaukee + Ghostbusters References = Nice&#39;);" onmouseout="return nd();">Louis Tully</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/letsgetswirly" target="_blank" onmouseover="return overlib(&#39;More Milwaukee Yumminess Punk&#39;);" onmouseout="return nd();">Mad Swirl</a></b></td></tr><tr> <td nowrap="">Wed
+</td><td nowrap="">Jan 9
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7372" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9 pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;still another hot wed night of music..a little something for EVERYONE&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/formaldehydemusic" target="_blank" onmouseover="return overlib(&#39;punk&#39;);" onmouseout="return nd();">Formaldehyde</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/treesabovemandalay" target="_blank" onmouseover="return overlib(&#39;rock&#39;);" onmouseout="return nd();">Trees Above Mandalay</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/scornedrox" target="_blank" onmouseover="return overlib(&#39;metal&#39;);" onmouseout="return nd();">Scorned</a></b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Thu
+</td><td nowrap="">Jan 10
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7548" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$6/$7&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/earthstoodstillrock" target="_blank" onmouseover="return overlib(&#39;Indie/Punk from PA.. Brand New meets Jimmy Eats World-ish..&#39;);" onmouseout="return nd();">Earth Stood Still</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=554" onmouseover="return overlib(&#39;Indie rock with a hint of post punk&#39;);" onmouseout="return nd();"><b>Death of Downtown</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/thehowlies" target="_blank" onmouseover="return overlib(&#39;Atlanta Garage Goodness!&#39;);" onmouseout="return nd();">The Howlies</a></b></td></tr><tr> <td bgcolor="#3C6091" nowrap="">Thu
+</td><td bgcolor="#3C6091" nowrap="">Jan 10
+</td><td bgcolor="#3C6091" nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td bgcolor="#3C6091" nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7373" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;BSL Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9 pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;rocked out!!&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td bgcolor="#3C6091"><b><a class="BandForeign" href="javascript:void(0);" onmouseover="return overlib(&#39;rock&#39;);" onmouseout="return nd();">Crude Cagway</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/7blueskies" target="_blank" onmouseover="return overlib(&#39;alternative&#39;);" onmouseout="return nd();">7 Blue Skies</a></b>, <b></b></td></tr><tr> <td nowrap="">Thu
+</td><td nowrap="">Jan 10
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=28">Durty Nelly's</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7585" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$3&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=472" onmouseover="return overlib(&#39;Some old fashioned rock-n-roll with a little twist...&#39;);" onmouseout="return nd();"><b>Empty Fifth</b></a></td></tr><tr> <td nowrap="">Thu
+</td><td nowrap="">Jan 10
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=30">Wayward Council</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7553" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;8 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;8pm vegan potluck, 9pm music &lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b>Andrew Jackson Jihad</b>, <b>Paul Baribeau</b>, <b>off sides</b>, <b>insurgent me</b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Fri
+</td><td nowrap="">Jan 11
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7549" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5/$7&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Chesdin\&#39;s Magical Friday Happy Hour 6 to 9!&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=430"><b>Freightline</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=476" onmouseover="return overlib(&#39;Playing music about life, the universe, and everything.&#39;);" onmouseout="return nd();"><b>Sweet City Action</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=129" onmouseover="return overlib(&#39;21st century psychedelic blues/BIG rock&#39;);" onmouseout="return nd();"><b>Root Doctors</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/holidaysburg" target="_blank" onmouseover="return overlib(&#39;Orlando Alt-Country&#39;);" onmouseout="return nd();">Holidaysburg</a></b></td></tr><tr> <td nowrap="">Fri
+</td><td nowrap="">Jan 11
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=62">Atlantic</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7453" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=450"><b>Young Livers</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=428"><b>Liquid Limbs</b></a>, <b>Worn in Red</b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=224" onmouseover="return overlib(&#39;melodic indie rock fueled by beer and common sense.&#39;);" onmouseout="return nd();"><b>Team Mascot</b></a></td></tr><tr> <td nowrap="">Fri
+</td><td nowrap="">Jan 11
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7374" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9 pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;local show to rock your socks off&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=502" onmouseover="return overlib(&#39;blues, soul, funk, rock&#39;);" onmouseout="return nd();"><b>moodhosa</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=384" onmouseover="return overlib(&#39;See The Pull Out live!...or your car will explode!!&#39;);" onmouseout="return nd();"><b>The Pull Out</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/jacobgroten" target="_blank" onmouseover="return overlib(&#39;indie&#39;);" onmouseout="return nd();">Jacob Groten</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/hagusmagagusfunk" target="_blank" onmouseover="return overlib(&#39;funk&#39;);" onmouseout="return nd();">Hagnus Magagus</a></b></td></tr><tr> <td nowrap="">Fri
+</td><td nowrap="">Jan 11
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=4">Common Grounds</a>
+</td><td nowrap="">
+
+
+</td><td><b><a class="BandForeign" href="javascript:void(0);" onmouseover="return overlib(&#39;Reggae/Rock Steady&#39;);" onmouseout="return nd();">The Captives</a></b></td></tr><tr> <td nowrap="">Fri
+</td><td nowrap="">Jan 11
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=1">The Side Bar</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7317" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Side Bar Presents&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;9pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$5&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=163" onmouseover="return overlib(&#39;Rock and Roll Music&#39;);" onmouseout="return nd();"><b>Morningbell</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=325" onmouseover="return overlib(&#39;An all around good time rock band that just make you want to move your feet&#39;);" onmouseout="return nd();"><b>The Most</b></a>, <b>King of Prussia</b></td></tr><tr> <td bgcolor="#3C6091" nowrap="">Fri
+</td><td bgcolor="#3C6091" nowrap="">Jan 11
+</td><td bgcolor="#3C6091" nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=26">Tim and Terry's</a>
+</td><td bgcolor="#3C6091" nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7588" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;free&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Snare and a Chair\&#39;s LAST show&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td bgcolor="#3C6091"><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=358" onmouseover="return overlib(&#39;psychotic, minimal pop&#39;);" onmouseout="return nd();"><b>Snare and a Chair</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=414" onmouseover="return overlib(&#39;Upbeat Indie Pop Rock a la Rilo Kiley, the Brunettes, and The Strokes&#39;);" onmouseout="return nd();"><b>Oh Sanders</b></a>, <b><a class="BandForeign" href="javascript:void(0);" onmouseover="return overlib(&#39;Actually Cara del Gato. Last show in Gainesville.&#39;);" onmouseout="return nd();">New RIver Death Cult</a></b>, <b>Boy + GIrl</b>, <b>Oh Fortuna</b></td></tr><tr><td nowrap="" colspan="9" bgcolor="#666666"><img src="./2008-Jan_files/blankimage.gif" alt=""></td></tr>
+<tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=95">1982</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7423" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Glory Days Presents!&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Drs 8pm / Show 8:30&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$7 over 21/$8 under 21&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+				
+		<a href="javascript:void(0);" onmouseover="return overlib(&#39;All Ages Show&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/allages.gif" border="0"></a> 
+		
+
+</td><td><b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/slowmotionskyrocket">slowmotion skyrocket</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/goradio" target="_blank" onmouseover="return overlib(&#39;Tally/ex Mayday Parade singer&#39;);" onmouseout="return nd();">Go Radio</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/soldiercitylegends" target="_blank" onmouseover="return overlib(&#39;Orlando emo/rock&#39;);" onmouseout="return nd();">Soldier City Legends</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://www.myspace.com/playactionpass" target="_blank" onmouseover="return overlib(&#39;gainesville indie&#39;);" onmouseout="return nd();">Play Action Pass</a></b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=62">Atlantic</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7454" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10 PM&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=485" onmouseover="return overlib(&#39;All Female Alt-Country&#39;);" onmouseout="return nd();"><b>The Ones to Blame</b></a>, <b><a class="BandForeign" href="javascript:void(0);" onmouseover="return overlib(&#39;w/full band&#39;);" onmouseout="return nd();">Matt Butcher</a></b>, <b>Laurel Lee and the Escapees </b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=99">Backstage Lounge</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7237" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Electronic SubSouth Show 35&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;10:00pm&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Electronic SubSouth Show 35: monthly concert series showcasing Florida\&#39;s Live Electronic Music Movement. Featuring Mr. Spagandy as the &amp;quot;Master of Ceremonies&amp;quot;, and Diisco Viirus as the &amp;quot;Official ESS Disc Jockey&amp;quot;.&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><b>Electronic SubSouth presents...</b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/24306727" target="_blank" onmouseover="return overlib(&#39;post-punk electronic alterna-pop - from Orlando&#39;);" onmouseout="return nd();">Flashlight Party</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/lissajou" target="_blank" onmouseover="return overlib(&#39;jacked up post-techno chiptune - from Jacksonville&#39;);" onmouseout="return nd();">Lissajou</a></b>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=545" onmouseover="return overlib(&#39;Music experiments performed by robots, ragdolls and creature that defy clas&#39;);" onmouseout="return nd();"><b>Sarcastic</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/theskraelings" target="_blank" onmouseover="return overlib(&#39;funky aggro blank-wave - from Jacksonville&#39;);" onmouseout="return nd();">The Skraelings</a></b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=4">Common Grounds</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7272" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$12&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+<a href="javascript:void(0);" onmouseover="return overlib(&#39;Common Grounds&#39;,CAPTION,&#39;Tickets Available at:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/Tickets.gif" border="0"></a>
+</td><td><b>The 2008 Epitaph Tour</b>, <b>Gallows</b>, <b>This Is Hell</b>, <b>Cancer Bats</b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=2">Market Street Pub</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7539" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Glory Days Presents!&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Drs 9 / Show 10:30&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Details: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Live Music is back at Market St Pub for Spring 08&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=344" onmouseover="return overlib(&#39;Synthesizers, ambitious vocals, and danceable beats with early r&amp;amp;b and soul&#39;);" onmouseout="return nd();"><b>Velveteen Pink</b></a>, <a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=511" onmouseover="return overlib(&#39;Three piece rock with reggae tendencies.&#39;);" onmouseout="return nd();"><b>Hours Eastly</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/dannibay" target="_blank" onmouseover="return overlib(&#39;local r&amp;b/soul singer with tight backing band&#39;);" onmouseout="return nd();">The Danni Bay Band</a></b></td></tr><tr> <td nowrap="">Sat
+</td><td nowrap="">Jan 12
+</td><td nowrap=""><a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/venuedetail.asp?venueid=1">The Side Bar</a>
+</td><td nowrap="">
+		
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com:80/showdetail.asp?showid=7537" onmouseover="return overlib(&#39;&lt;table bgcolor=\&#39;#000000\&#39; width=\&#39;250\&#39; border=\&#39;0\&#39; cellpadding=\&#39;1\&#39; cellspacing=\&#39;1\&#39;&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Name: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Glory Days Presents!&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Show Time: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;Drs 9pm / Show 10:30&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td nowrap bgcolor=\&#39;#222222\&#39; align=\&#39;center\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;&lt;b&gt;Prices: &lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td bgcolor=\&#39;#333333\&#39;&gt;&lt;font face=\&#39;Verdana,Arial,Helvetica,sans-serif\&#39; size=\&#39;1\&#39; color=\&#39;#FFFFFF\&#39;&gt;$6&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;,CAPTION,&#39;Additional Info:&#39;);" onmouseout="return nd();"><img src="./2008-Jan_files/info.gif" border="0"></a> 
+		
+
+</td><td><a class="BandLocal" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/banddetail.asp?bandid=437" onmouseover="return overlib(&#39;Jam band with heavy jazz and rock influence, reggae roots as well. &#39;);" onmouseout="return nd();"><b>Funkatron</b></a>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/junkierush" target="_blank" onmouseover="return overlib(&#39;Orlando rock/reggae/lattin&#39;);" onmouseout="return nd();">Junkie Rush</a></b>, <b><a class="BandForeign" href="https://web.archive.org/web/20080113041311/http://myspace.com/bluebirdsuitcase" target="_blank" onmouseover="return overlib(&#39;Tallahassee psychedelic pop/rock&#39;);" onmouseout="return nd();">Bluebird Suitcase</a></b></td></tr></tbody></table>
+<br>
+<center>
+<table border="0" width="450">
+<tbody><tr>	
+	<th colspan="2">Icons:	
+</th></tr>
+<tr>	
+	<td align="right"><img src="./2008-Jan_files/info.gif" alt="show info" border="0">	
+	</td><td>hover or click to get additional show info
+</td></tr>
+<tr>
+	<td align="right"><img src="./2008-Jan_files/g.gif" alt="glypher will be there" border="0">
+	</td><td>glypher plans on attending the show.
+</td></tr>
+<tr>
+	<td align="right"><img src="./2008-Jan_files/allages.gif" alt="ALL AGES" border="0">
+	</td><td>this is an all ages show.
+</td></tr>
+<tr>
+	<td align="right"><img src="./2008-Jan_files/Tickets.gif" alt="Avanced Tickets">
+	</td><td>Advanced ticket sales are avalible for the show
+</td></tr>
+
+<tr>	
+	<th colspan="2">Coloration:
+</th></tr>
+<tr>
+	<td align="right"><b><a class="BandLocal" href="javascript:void(0);">Local Band</a></b>
+	</td><td>A band From right here in Gainesville.  Hover their name for a Description of their sound.  Click their name to go to their profile page.
+</td></tr>
+<tr>
+	<td align="right"><b>Foreign Band</b>
+	</td><td>This is a touring band playing from out of town. No additional info avalible.
+</td></tr>
+
+<tr>
+	<td align="right"><b><a class="BandForeign" href="javascript:void(0);">Foreign Band With Info</a></b>
+	</td><td>This is a touring band playing from out of town. You can hover the name to get more info (or possbly click for a website)
+</td></tr>
+
+
+
+<tr>
+	<td colspan="2" bgcolor="#3C6091" align="center">show added/modified in the last 24 hrs</td>
+</tr><tr>
+	<td colspan="2" bgcolor="#4C79B7" align="center">show added/modified in the last 72 hrs</td>
+</tr>
+
+
+
+</tbody></table>
+
+
+<br>
+
+</center></td>
+
+
+<td class="SponsorBar">
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tbody><tr><td align="center" bgcolor="000000"><b>Forum Quick Links</b><br>
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/forum/active_topics.asp">active topics</a>
+
+</td></tr>
+
+<tr><td>
+&nbsp;
+</td></tr>
+
+
+<tr><td align="center" bgcolor="000000"><b>Try GBDC Mobile:</b><br>
+
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq_mobile.asp">Internet Enabled Phone</a>
+		<br>or<br>
+		<a href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/mobile/">Pocket Edition</a>
+</td></tr>
+
+<tr><td>
+&nbsp;
+</td></tr>
+
+<tr><td align="center" bgcolor="000000"><b>glypher's Beer Fund:</b>
+<form action="https://web.archive.org/web/20080113041311/https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="./2008-Jan_files/x-click-but21.gif" border="0" name="submit" alt="Make payments with PayPal - it&#39;s fast, free and secure!">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----
+MIIHPwYJKoZIhvcNAQcEoIIHMDCCBywCAQExggEwMIIBLAIBADCBlDCBjjELMAkG
+A1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQw
+EgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UE
+AxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJ
+KoZIhvcNAQEBBQAEgYASj+dkRdprOpSEbGVlphTUtCnUQMKMpJx/IbkQ6dKZWjvB
+5LUaiU4fkhVCkVSYs0wFF5emc+rWBmdN3jn7eLQ0bKuBhy9lMwWzy0jIRfUbEvJZ
+8KjX/inC+TpjiQZ6zCYE6DaIVBAEfZBoUj7EjfD3wSOTkK9zk+SO+PTpXGYjjzEL
+MAkGBSsOAwIaBQAwgbwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIRQUoMI7IoMqA
+gZgdyWcZEMIhLR5mRH5F00k0H3PLlyv5203foIX7ml+I2pLdwQ9DFX9rzavg3kZ6
+jB7dqCxzWukbU22f9i/J+WCNrKUebWH+TASO9grp6bQW8ZT/T86hrG+vXdEgDiwV
+hjGg1FXRCmibrifX1ha4Hd9e0k80mEK4S4+5b7DpqOwzdu1gNzLko5H78BZKYsbb
+msOzl7N21bbzDaCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGO
+MQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZp
+ZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREw
+DwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAe
+Fw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzEL
+MAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1Bh
+eVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2Fw
+aTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEF
+AAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc9
+7CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAA
+E1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEA
+AaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSB
+szCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVT
+MQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChML
+UGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVf
+YXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMB
+Af8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692A
+g422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16
+l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP
+3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNB
+MRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjET
+MBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG
+9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJ
+AzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTA0MDYwMTIwMzk1MlowIwYJ
+KoZIhvcNAQkEMRYEFIT11BGVNSZHLIv2pZ/qyLLcNaKZMA0GCSqGSIb3DQEBAQUA
+BIGAlQtX9TDQ+SS7IruIIkKD7kiRVglje04p5/g3aIzFf3wY7ZHDVtsrHmFBib/2
++XJfDUE+RHk94IhEy4PM+O1O1Dols/MIVJWfn/8nxnoSzmhJWOaAxLl8wF6SbDfQ
+qN1qBkFQiUO34JSk8qlk1PTIeilU541TLvLSBsLWRHt0IAI=
+-----END PKCS7-----
+">
+</form>
+<br><center><small>(monies collected will directly<br>support gbdc goodness)</small></center>
+</td></tr>
+
+<tr><td align="center" width="150">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3646645133794388";
+google_ad_width = 120;
+google_ad_height = 600;
+google_ad_format = "120x600_as";
+google_ad_channel ="3365796200";
+google_color_border = "000000";
+google_color_bg = "333333";
+google_color_link = "FFFFFF";
+google_color_url = "FF9900";
+google_color_text = "FFFFFF";
+//--></script>
+<script type="text/javascript" src="./2008-Jan_files/show_ads.js">
+</script>
+</td></tr>
+
+</tbody></table>
+
+</td></tr>
+
+
+
+<tr>
+<td colspan="3">
+
+<table cellpadding="2" cellspacing="3" border="0" align="center">
+<tbody><tr valign="middle">
+<td class="footbar"><a class="footbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq_contact.asp" target="_top">Contact</a>
+</td><td class="footbar"> - 
+</td><td class="footbar"><a class="footbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq_about.asp" target="_top">About</a>
+</td><td class="footbar"> - 
+</td><td class="footbar"><a class="footbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq_helpout.asp" target="_top">Help Out</a>
+</td><td class="footbar"> - 
+</td><td class="footbar"><a class="footbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/faq_general.asp" target="_top">FAQ</a>
+</td><td>
+</td></tr></tbody></table>
+
+
+<table align="center">
+<tbody><tr valign="middle">
+<td class="footbar" colspan="6">
+	<br>
+	All content, code, and layout on this website ©2002-2006 glypher and GainesvilleBands com INC. All Rights Reserved.
+	<br>
+</td>
+</tr><tr>
+
+
+<td class="footbar" colspan="6">
+	<center><a class="footbar" href="https://web.archive.org/web/20080113041311/http://www.gainesvillebands.com/backstage/menu.asp" target="_top">Backstage Pass Login</a></center>
+	<br>
+</td>
+</tr></tbody></table>
+
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+</body></html>
