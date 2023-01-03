@@ -6,35 +6,29 @@ let show_count = 0;
 let date;
 let bands;
 let venue;
-const $ = cheerio.load(fs.readFileSync('data/2003.html'));
-const rows = $('.showlistings tr td', 'body');
 
-rows.each((i, el) => {
-  const td = $(el);
+const year = 2008;
+const filename = year + '-Oct';
+const $ = cheerio.load(fs.readFileSync('data/HTML/' + filename + '.html'));
+const rows = $('table tr', 'body');
 
-  if( td.hasClass('maindate') ) {
-    date = td.text();
+rows.each((i, row) => {
+  const tds = $(row).find('td');
+  // console.log(tds.length)
+  if(tds.length < 1) return; //skip the header row
+  date  = $(tds[2]).text().trim() + ', ' + year;
+  venue = $(tds[3]).text().trim();
+  bands = $(tds[5]).text().split(',');
+  bands = bands.map(band => band.trim()); //trim the leading spaces
+
+  shows[show_count] = {
+    date  : date,
+    venue : venue,
+    bands : bands
   }
-
-  if( td.hasClass('venue') ) {
-    venue = td.text().trim();
-  }
-
-  if( td.hasClass('bandlist')) {
-    bands = [];
-
-    $('b', td).each((i, el) => {
-      const b = $(el);
-      bands[i] = b.text();
-    })
-
-    shows[show_count] = {
-      date : date,
-      venue: venue,
-      bands: bands
-    }
-    show_count++;
-  }
+  show_count++;
 });
 
-console.log(shows)
+
+console.log(JSON.stringify(shows))
+fs.writeFileSync('data/JSON/' + filename + '.json', JSON.stringify(shows));
